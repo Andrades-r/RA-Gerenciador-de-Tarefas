@@ -59,9 +59,10 @@ public class TarefasController {
 	}
 	
 	@GetMapping("/alterar/{id}")
-	public ModelAndView alterar(@PathVariable("id")Long id) {
+	public ModelAndView alterar(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
 		Tarefa tarefa = repositorioTarefa.getOne(id);
+		mv.setViewName("tarefas/alterar");
 		mv.addObject("tarefa",tarefa);
 		return mv;
 	}
@@ -85,7 +86,18 @@ public class TarefasController {
 		return mv;
 	}
 	
+	@GetMapping("/excluir/{id}")
+	public String excluir(@PathVariable("id") Long id) {
+		repositorioTarefa.deleteById(id);
+		return "redirect:/tarefas/listar";
+	}
 	
-	
+	@GetMapping("/concluir/{id}")
+	public String concluir(@PathVariable("id") Long id) {
+		Tarefa tarefa = repositorioTarefa.getOne(id);
+		tarefa.setCompleted(true);
+		repositorioTarefa.save(tarefa);	
+		return "redirect:/tarefas/listar";
+	}
 
 }

@@ -6,21 +6,23 @@
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
+
 	<div th:replace="fragmentos/fragmentos ::cabecalho"></div>
+	
 	<div class="container">
 		<h3>Alteração de Tarefa</h3>
+		
 		<form class="form-horizontal" action="/tarefas/inserir" method="post"
 			th:object="${tarefa}">
-			
 			<input type="hidden" th:field="*{id}">
-			
+		
 			<div class="row">
 				<div class="form-group col-md-6">
 				<div class="alert alert-danger " role="alert" th:if="${#fields.hasErrors('title')}">
 					<label th:errors="*{title}" class="validation-message"></label>
 				</div>
 					<label>Título</label>
-					 <input type="text" maxlength="50" class="form-control" th:field="*{title}">
+					 <input type="text" class="form-control" th:field="*{title}">
 				</div>
 			</div>
 			
